@@ -7,7 +7,7 @@ var health: int = max_health
 var speed
 @export var WALK_SPEED = 4.0
 @export var SPRINT_SPEED = 8.0
-@export var CROUCHING_SPEED = 2.0
+@export_range (5, 10, 0.1) var CROUCHING_SPEED : float = 7.0
 @export var JUMP_VELOCITY = 4
 @export var SENSITIVITY = 0.004
 
@@ -117,8 +117,9 @@ func _process(delta):
 func toggle_crouch():
 	if isCrouching == true:
 		print(isCrouching)
+		ANIMATION_PLAYER.play("Debug_Crouch", -1, -CROUCHING_SPEED, true)
 	elif isCrouching == false:
-		ANIMATION_PLAYER.play("Debug_Crouch")
+		ANIMATION_PLAYER.play("Debug_Crouch", -1, -CROUCHING_SPEED * -1, false)
 	isCrouching = !isCrouching
 
 func _headbob(time) -> Vector3:
