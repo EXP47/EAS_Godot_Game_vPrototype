@@ -24,11 +24,13 @@ var speed
 var gravity = 9.8
 
 @export var ANIMATION_PLAYER : AnimationPlayer
+@export var CROUCH_SHAPECAST : Node3D
 
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var ui = $Head/Camera3D/UI  # Direct reference to UI
+
 
 var isCrouching:= false
 
@@ -36,6 +38,8 @@ var isCrouching:= false
 #This is for getting the Camera Working
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	CROUCH_SHAPECAST.add_exception($".")
 	
 func _input(event):
 	if event.is_action_pressed("debug_quit"):
@@ -115,7 +119,7 @@ func _process(delta):
 		heal_health(10)
 
 func toggle_crouch():
-	if isCrouching == true:
+	if isCrouching == true and CROUCH_SHAPECAST.is_colliding() == false:
 		print(isCrouching)
 		ANIMATION_PLAYER.play("Debug_Crouch", -1, -CROUCHING_SPEED, true)
 	elif isCrouching == false:

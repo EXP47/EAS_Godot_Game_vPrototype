@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnh7updnqi1y5"]
+[gd_scene load_steps=13 format=3 uid="uid://cnh7updnqi1y5"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_di8ql"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="2_genpw"]
@@ -83,9 +83,12 @@ _data = {
 "RESET": SubResource("Animation_i5dn7")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATION_PLAYER")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_2tjkp"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATION_PLAYER", "CROUCH_SHAPECAST")]
 script = ExtResource("1_di8ql")
 ANIMATION_PLAYER = NodePath("AnimationPlayer")
+CROUCH_SHAPECAST = NodePath("ShapeCast3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_nsdqt")
@@ -122,3 +125,7 @@ texture_progress = SubResource("GradientTexture2D_i2sa3")
 libraries = {
 "": SubResource("AnimationLibrary_xwlps")
 }
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_2tjkp")
